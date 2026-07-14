@@ -29,7 +29,8 @@ export async function api(path, { method = 'GET', body, auth = true, retry = tru
   if (body !== undefined) headers['Content-Type'] = 'application/json';
   if (auth && accessToken) headers['Authorization'] = `Bearer ${accessToken}`;
 
-  const res = await fetch(`/api${path}`, {
+  const apiUrl = import.meta.env.VITE_API_URL || '';
+  const res = await fetch(`${apiUrl}/api${path}`, {
     method,
     headers,
     credentials: 'include',
