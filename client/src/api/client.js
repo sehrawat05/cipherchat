@@ -3,7 +3,9 @@
  * to limit XSS blast radius). The refresh token is an httpOnly cookie the JS
  * can't read. On a 401 we transparently rotate via /api/auth/refresh and retry.
  */
+
 const API_BASE = import.meta.env.VITE_API_URL ?? '';
+
 let accessToken = null;
 
 export function setAccessToken(token) {
@@ -14,7 +16,7 @@ export function getAccessToken() {
 }
 
 async function refreshAccessToken() {
-  const res = await fetch('/api/auth/refresh', {
+  const res = await fetch(`${API_BASE}/api/auth/refresh`, {
     method: 'POST',
     credentials: 'include',
   });
@@ -29,8 +31,7 @@ export async function api(path, { method = 'GET', body, auth = true, retry = tru
   if (body !== undefined) headers['Content-Type'] = 'application/json';
   if (auth && accessToken) headers['Authorization'] = `Bearer ${accessToken}`;
 
-  const apiUrl = import.meta.env.VITE_API_URL || '';
-  const res = await fetch(`${apiUrl}/api${path}`, {
+  const res = await fetch(`${API_BASE}/api${path}`, {
     method,
     headers,
     credentials: 'include',
