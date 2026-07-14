@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(93, 107, 255, 0.18), transparent 60%),
+    radial-gradient(900px 500px at -10% 110%, rgba(52, 231, 196, 0.12), transparent 55%),
+    #0a0b14;
+  color: #e7e9f5;
+  font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Subtle scrollbars */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgba(124, 138, 255, 0.25);
+  border-radius: 999px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@layer components {
+  .glass {
+    @apply border border-white/5 bg-white/[0.03] backdrop-blur-xl;
+  }
+  .btn-primary {
+    @apply rounded-xl bg-gradient-to-r from-cipher-600 to-cipher-400 px-4 py-2.5 font-semibold text-white
+           shadow-lg shadow-cipher-600/20 transition hover:brightness-110 active:scale-[0.98]
+           disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .input {
+    @apply w-full rounded-xl border border-white/10 bg-ink-900/70 px-4 py-2.5 text-sm text-white
+           outline-none transition placeholder:text-white/30 focus:border-cipher-400/60
+           focus:ring-2 focus:ring-cipher-500/20;
+  }
+}
