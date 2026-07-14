@@ -22,8 +22,10 @@ export function useSocket({ enabled, onMessage }) {
     if (!token) return;
 
     setStatus('connecting');
-    const proto = location.protocol === 'https:' ? 'wss' : 'ws';
-    const ws = new WebSocket(`${proto}://${location.host}/ws?token=${encodeURIComponent(token)}`);
+    const apiUrl = import.meta.env.VITE_API_URL || '';
+    const host = apiUrl ? new URL(apiUrl).host : location.host;
+    const proto = apiUrl ? 'wss' : (location.protocol === 'https:' ? 'wss' : 'ws');
+    const ws = new WebSocket(`${proto}://${host}/ws?token=${encodeURIComponent(token)}`);
     socketRef.current = ws;
 
     ws.onopen = () => {
